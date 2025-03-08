@@ -1,7 +1,9 @@
 import streamlit as st
 import json
-import requests
 import google.generativeai as genai
+from stealthkit import StealthSession
+
+ss = StealthSession()
 
 # Set up the API key
 API_KEY = st.secrets["GEMINI_API_KEY"]
@@ -31,7 +33,8 @@ if st.button("Fetch Reddit Data"):
     if reddit_url:
         try:
             json_url = reddit_url.rstrip('/') + ".json"
-            response = requests.get(json_url, headers={'User-agent': 'yourbot'})
+            ss.fetch_cookies("https://www.reddit.com")
+            response = ss.get(json_url)
             response.raise_for_status()  # Raise HTTPError for bad responses (4xx or 5xx)
             data = response.json()
 
