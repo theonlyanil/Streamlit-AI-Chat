@@ -52,7 +52,7 @@ if st.button("Fetch Reddit Data"):
             st.session_state.messages = []
             st.success("Reddit data fetched and set as context!")
 
-        except requests.exceptions.RequestException as e:
+        except Exception as e:
             st.error(f"Error fetching Reddit data: {e}")
         except json.JSONDecodeError:
             st.error("Invalid JSON response from Reddit.")
